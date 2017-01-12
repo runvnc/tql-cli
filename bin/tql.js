@@ -22,14 +22,16 @@ var cfg = {};
 if (argv.d) cfg.path = argv.d;
 
 if (argv.c) cfg.snappy = 1;
-if (argv.m) cfg.ext = 'msp';
+
+var match = undefined;
+if (argv.m) match = Function("r", argv.m);
 
 if (Object.keys(cfg).length > 0) {
   (0, _timequerylog.config)(cfg);
 }
 
-console.log("Config:", JSON.stringify(cfg), "Type:", type, "Start:", start, "End:", end);
-var stream = (0, _timequerylog.queryOpts)({ type: type, start: start, end: end });
+console.log("Config:", JSON.stringify(cfg), "Type:", type, "Start:", start, "End:", end, 'Match:', match);
+var stream = (0, _timequerylog.queryOpts)({ type: type, start: start, end: end, match: match });
 stream.on('data', function (d) {
   console.log(d);
 });

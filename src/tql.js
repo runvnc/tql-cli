@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 import minimist from 'minimist';
 import {config, queryOpts} from 'timequerylog';
 
@@ -15,14 +14,16 @@ let cfg = {};
 if (argv.d) cfg.path = argv.d;
 
 if (argv.c) cfg.snappy = 1;
-if (argv.m) cfg.ext = 'msp';
+
+let match = undefined;
+if (argv.m) match = Function("r",argv.m);
 
 if (Object.keys(cfg).length>0) {
   config(cfg);
 }
 
-console.log("Config:",JSON.stringify(cfg),"Type:",type,"Start:",start,"End:",end);
-const stream = queryOpts({type, start, end});
+console.log("Config:",JSON.stringify(cfg),"Type:",type,"Start:",start,"End:",end, 'Match:',match);
+const stream = queryOpts({type, start, end, match});
 stream.on('data', d => {
   console.log(d);
 });
