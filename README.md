@@ -7,7 +7,7 @@ Command line tool for querying logs made with `timequerylog` module.
 Show 'events' from last 30 minutes. Output is JSON.
 
 ```shell
-tql event`
+tql event
 ```
 
 Type 'errors' from start time with data directory 'datalog'.
