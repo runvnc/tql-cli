@@ -1,10 +1,21 @@
 #!/usr/bin/env node
 import minimist from 'minimist';
 import {config, queryOpts} from 'timequerylog';
+import fs from 'fs';
+import marked from 'marked';
+import TerminalRenderer from 'marked-terminal';
+   
+marked.setOptions({renderer: new TerminalRenderer()});
 
 const argv = minimist(process.argv.slice(2));
 
 const type = argv['_'];
+
+if (argv.help || Object.keys(argv).length==1) {
+  let text = fs.readFileSync(__dirname+'/../README.md','utf8');
+  console.log(marked(text));
+  process.exit();
+} 
 
 let start = null, end = null
 if (argv.s) start = new Date(argv.s);
@@ -22,12 +33,22 @@ if (Object.keys(cfg).length>0) {
   config(cfg);
 }
 
-console.log("Config:",JSON.stringify(cfg),"Type:",type,"Start:",start,"End:",end, 'Match:',match);
+if (argv.v)
+  console.log("Config:",JSON.stringify(cfg),"Type:",type,"Start:",start,"End:",end, 'Match:',match);
+
 const stream = queryOpts({type, start, end, match});
+
+console.log('[');
+let cnt = 0;
 stream.on('data', d => {
-  console.log(d);
+  if (cnt++ > 0) console.log(',');
+  console.log(JSON.stringify(d));
 });
 
 //stream.pipe(process.stdout);
 
-stream.on('end', process.exit);
+stream.on('end', () => {
+  console.log(']');
+  process.exit();
+});
+

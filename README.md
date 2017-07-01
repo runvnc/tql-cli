@@ -4,6 +4,12 @@ Command line tool for querying logs made with `timequerylog` module.
 
 # Usage
 
+Show this readme in terminal.
+
+```shell
+tql --help
+```
+
 Show 'events' from last 30 minutes. Output is JSON.
 
 ```shell
