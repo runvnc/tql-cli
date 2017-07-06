@@ -7,9 +7,10 @@ import TerminalRenderer from 'marked-terminal';
    
 marked.setOptions({renderer: new TerminalRenderer()});
 
+const origargv = process.argv.slice(2);
 const argv = minimist(process.argv.slice(2));
 
-const type = argv['_'];
+let type = argv['_'];
 
 if (argv.help || Object.keys(argv).length==1) {
   let text = fs.readFileSync(__dirname+'/../README.md','utf8');
@@ -36,15 +37,17 @@ if (Object.keys(cfg).length>0) {
 if (argv.v)
   console.log("Config:",JSON.stringify(cfg),"Type:",type,"Start:",start,"End:",end, 'Match:',match);
 
-const doMulti = async ({type, start, end, match}) => {
-  const arr = await queryMultiArray({type, start, end, match});
+const doMulti = async ({typeGlob, start, end, match}) => {
+  const arr = await queryMultiArray({typeGlob, start, end, match});
   console.log(arr);
+  process.exit();
 }
 
-if (argv.u) doMulti({type,start,end,match}).catch(console.error); 
-else {
+if (argv.u) {
+  const typeGlob = argv.u;
+  doMulti({typeGlob,start,end,match}).catch(console.error); 
+} else {
     const stream = queryOpts({type, start, end, match});
-
     console.log('[');
     let cnt = 0;
     stream.on('data', d => {

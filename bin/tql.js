@@ -31,6 +31,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _marked2.default.setOptions({ renderer: new _markedTerminal2.default() });
 
+var origargv = process.argv.slice(2);
 var argv = (0, _minimist2.default)(process.argv.slice(2));
 
 var type = argv['_'];
@@ -62,7 +63,7 @@ if (argv.v) console.log("Config:", JSON.stringify(cfg), "Type:", type, "Start:",
 
 var doMulti = function () {
   var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(_ref2) {
-    var type = _ref2.type,
+    var typeGlob = _ref2.typeGlob,
         start = _ref2.start,
         end = _ref2.end,
         match = _ref2.match;
@@ -72,14 +73,15 @@ var doMulti = function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return (0, _timequerylog.queryMultiArray)({ type: type, start: start, end: end, match: match });
+            return (0, _timequerylog.queryMultiArray)({ typeGlob: typeGlob, start: start, end: end, match: match });
 
           case 2:
             arr = _context.sent;
 
             console.log(arr);
+            process.exit();
 
-          case 4:
+          case 5:
           case 'end':
             return _context.stop();
         }
@@ -92,9 +94,11 @@ var doMulti = function () {
   };
 }();
 
-if (argv.u) doMulti({ type: type, start: start, end: end, match: match }).catch(console.error);else {
+if (argv.u) {
+  var typeGlob = argv.u;
+  doMulti({ typeGlob: typeGlob, start: start, end: end, match: match }).catch(console.error);
+} else {
   var stream = (0, _timequerylog.queryOpts)({ type: type, start: start, end: end, match: match });
-
   console.log('[');
   var cnt = 0;
   stream.on('data', function (d) {

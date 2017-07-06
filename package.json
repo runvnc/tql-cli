@@ -22,6 +22,6 @@
     "marked": "^0.3.6",
     "marked-terminal": "^2.0.0",
     "minimist": "^1.2.0",
-    "timequerylog": "^21.0.0"
+    "timequerylog": "^22.0.0"
   }
 }
