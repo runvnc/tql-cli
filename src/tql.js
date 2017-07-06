@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import minimist from 'minimist';
-import {config, queryOpts} from 'timequerylog';
+import {config, queryMultiArray, queryOpts} from 'timequerylog';
 import fs from 'fs';
 import marked from 'marked';
 import TerminalRenderer from 'marked-terminal';
@@ -36,10 +36,13 @@ if (Object.keys(cfg).length>0) {
 if (argv.v)
   console.log("Config:",JSON.stringify(cfg),"Type:",type,"Start:",start,"End:",end, 'Match:',match);
 
-if (argv.u) {
-  const arr = queryMulti({type, start, end, match});
+const doMulti = async ({type, start, end, match}) => {
+  const arr = await queryMultiArray({type, start, end, match});
   console.log(arr);
-} else {
+}
+
+if (argv.u) doMulti({type,start,end,match}).catch(console.error); 
+else {
     const stream = queryOpts({type, start, end, match});
 
     console.log('[');
