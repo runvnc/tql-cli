@@ -36,19 +36,22 @@ if (Object.keys(cfg).length>0) {
 if (argv.v)
   console.log("Config:",JSON.stringify(cfg),"Type:",type,"Start:",start,"End:",end, 'Match:',match);
 
-const stream = queryOpts({type, start, end, match});
+if (argv.u) {
+  const arr = queryMulti({type, start, end, match});
+  console.log(arr);
+} else {
+    const stream = queryOpts({type, start, end, match});
 
-console.log('[');
-let cnt = 0;
-stream.on('data', d => {
-  if (cnt++ > 0) console.log(',');
-  console.log(JSON.stringify(d));
-});
+    console.log('[');
+    let cnt = 0;
+    stream.on('data', d => {
+      if (cnt++ > 0) console.log(',');
+      console.log(JSON.stringify(d));
+    });
 
-//stream.pipe(process.stdout);
-
-stream.on('end', () => {
-  console.log(']');
-  process.exit();
-});
+    stream.on('end', () => {
+      console.log(']');
+      process.exit();
+    });
+}
 
