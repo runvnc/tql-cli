@@ -13,6 +13,8 @@ const argv = minimist(process.argv.slice(2));
 let type = argv['_'];
 
 if (argv.help || Object.keys(argv).length==1) {
+  const ver = require(__dirname+'/../package.json').version;
+  console.log("tql version",ver);
   let text = fs.readFileSync(__dirname+'/../README.md','utf8');
   console.log(marked(text));
   process.exit();
@@ -39,7 +41,7 @@ if (argv.v)
 
 const doMulti = async ({typeGlob, start, end, match}) => {
   const arr = await queryMultiArray({typeGlob, start, end, match});
-  console.log(arr);
+  console.log(JSON.stringify(arr, null, 4));
   process.exit();
 }
 

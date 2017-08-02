@@ -37,6 +37,8 @@ var argv = (0, _minimist2.default)(process.argv.slice(2));
 var type = argv['_'];
 
 if (argv.help || Object.keys(argv).length == 1) {
+  var ver = require(__dirname + '/../package.json').version;
+  console.log("tql version", ver);
   var text = _fs2.default.readFileSync(__dirname + '/../README.md', 'utf8');
   console.log((0, _marked2.default)(text));
   process.exit();
@@ -78,7 +80,7 @@ var doMulti = function () {
           case 2:
             arr = _context.sent;
 
-            console.log(arr);
+            console.log(JSON.stringify(arr, null, 4));
             process.exit();
 
           case 5:
