@@ -81,9 +81,9 @@ var doMulti = function () {
             arr = _context.sent;
 
             console.log(JSON.stringify(arr, null, 4));
-            process.exit();
+            //process.exit();
 
-          case 5:
+          case 4:
           case 'end':
             return _context.stop();
         }

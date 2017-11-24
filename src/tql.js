@@ -42,7 +42,7 @@ if (argv.v)
 const doMulti = async ({typeGlob, start, end, match}) => {
   const arr = await queryMultiArray({typeGlob, start, end, match});
   console.log(JSON.stringify(arr, null, 4));
-  process.exit();
+  //process.exit();
 }
 
 if (argv.u) {
