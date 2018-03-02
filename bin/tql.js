@@ -96,7 +96,10 @@ var doMulti = function () {
   };
 }();
 
-if (argv.u) {
+if (argv.l) {
+  var _type = argv.l;
+  (0, _timequerylog.latest)(_type).then(console.log);
+} else if (argv.u) {
   var typeGlob = argv.u;
   doMulti({ typeGlob: typeGlob, start: start, end: end, match: match }).catch(console.error);
 } else {

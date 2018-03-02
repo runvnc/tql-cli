@@ -34,3 +34,15 @@ Match function.
 tql event -s 01-01-2010 -m "return r.x>r.y;"
 ```
 
+Glob match type.
+
+```shell
+tql event -s 01-01-2010 -u "error*"
+```
+
+Show last recorded data.
+
+```shell
+tql event -l "trade"
+```
+

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import minimist from 'minimist';
-import {config, queryMultiArray, queryOpts} from 'timequerylog';
+import {config, latest, queryMultiArray, queryOpts} from 'timequerylog';
 import fs from 'fs';
 import marked from 'marked';
 import TerminalRenderer from 'marked-terminal';
@@ -45,7 +45,10 @@ const doMulti = async ({typeGlob, start, end, match}) => {
   //process.exit();
 }
 
-if (argv.u) {
+if (argv.l) {
+  const type = argv.l;
+  latest(type).then(console.log);
+} else if (argv.u) {
   const typeGlob = argv.u;
   doMulti({typeGlob,start,end,match}).catch(console.error); 
 } else {
