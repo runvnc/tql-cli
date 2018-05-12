@@ -54,8 +54,11 @@ if (argv.d) cfg.path = argv.d;
 
 if (argv.c) cfg.snappy = 1;
 
-var match = undefined;
+var match = undefined,
+    map = undefined;
 if (argv.m) match = Function("r", argv.m);
+
+if (argv.a) map = Function("r", argv.a);
 
 if (Object.keys(cfg).length > 0) {
   (0, _timequerylog.config)(cfg);
@@ -80,10 +83,11 @@ var doMulti = function () {
           case 2:
             arr = _context.sent;
 
+            if (map) arr = arr.map(map);
             console.log(JSON.stringify(arr, null, 4));
             //process.exit();
 
-          case 4:
+          case 5:
           case 'end':
             return _context.stop();
         }

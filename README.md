@@ -40,6 +40,11 @@ Glob match type.
 tql event -s 01-01-2010 -u "error*"
 ```
 
+Glob match has optional map function.
+```shell
+tql event -s 01-01-2010 -u "error*" -a "return r.message"
+```
+
 Show last recorded data.
 
 ```shell
