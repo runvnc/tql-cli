@@ -19,7 +19,7 @@
     "babel-preset-latest": "^6.16.0"
   },
   "dependencies": {
-    "marked": "^0.3.6",
+    "marked": "^0.3.19",
     "marked-terminal": "^2.0.0",
     "minimist": "^1.2.0",
     "timequerylog": "^39.0.0"
