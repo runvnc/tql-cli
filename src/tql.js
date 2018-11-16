@@ -29,10 +29,12 @@ if (argv.d) cfg.path = argv.d;
 
 if (argv.c) cfg.snappy = 1;
 
-let match = undefined, map = undefined;
+let match = undefined, map = undefined, sort = undefined;
 if (argv.m) match = Function("r",argv.m);
 
 if (argv.a) map = Function("r",argv.a);
+
+if (argv.r) sort = Function("a","b", argv.r);
 
 if (Object.keys(cfg).length>0) {
   config(cfg);
@@ -43,6 +45,7 @@ if (argv.v)
 
 const doMulti = async ({typeGlob, start, end, match}) => {
   let arr = await queryMultiArray({typeGlob, start, end, match});
+  if (sort) arr = arr.sort(sort);
   if (map) arr = arr.map(map);
   console.log(JSON.stringify(arr, null, 4));
   //process.exit();

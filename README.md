@@ -40,6 +40,12 @@ Glob match type.
 tql event -s 01-01-2010 -u "error*"
 ```
 
+Sort results after glob match
+
+```shell
+tql event -s 01-01-2010 -u "error*" -r "return a.id < b.id ? 1 : -1"
+```
+
 Glob match has optional map function.
 ```shell
 tql event -s 01-01-2010 -u "error*" -a "return r.message"
