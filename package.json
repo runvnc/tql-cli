@@ -1,6 +1,6 @@
 {
   "name": "tql-cli",
-  "version": "17.0.0",
+  "version": "18.0.0",
   "description": "",
   "bin": {
     "tql": "bin/tql.js"
@@ -22,6 +22,6 @@
     "marked": "^0.3.19",
     "marked-terminal": "^2.0.0",
     "minimist": "^1.2.0",
-    "timequerylog": "^40.0.0"
+    "timequerylog": "^41.0.0"
   }
 }
